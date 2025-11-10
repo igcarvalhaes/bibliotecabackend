@@ -1,6 +1,5 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
 import { livrosService } from "../services/livros.service";
-import z from "zod";
 import type { CriarLivroInput, IdParams } from "../schemas/livro";
 
 export const livrosController = {
