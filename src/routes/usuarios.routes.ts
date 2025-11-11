@@ -12,6 +12,10 @@ export async function usuariosRoutes(app: FastifyInstance) {
     "/user",
     {
       schema: {
+        tags: ["Usuários"],
+        summary: "Criar novo usuário",
+        description:
+          "Registra um novo usuário no sistema com nome, email e senha",
         body: criarUsuarioSchema,
         response: {
           201: userPublicSchema,
@@ -26,6 +30,9 @@ export async function usuariosRoutes(app: FastifyInstance) {
     "/login",
     {
       schema: {
+        tags: ["Usuários"],
+        summary: "Autenticar usuário",
+        description: "Realiza login e retorna token JWT para autenticação",
         body: loginSchema,
       },
     },
@@ -38,6 +45,10 @@ export async function usuariosRoutes(app: FastifyInstance) {
     {
       onRequest: [app.authenticate],
       schema: {
+        tags: ["Usuários"],
+        summary: "Ver o perfil do usuário",
+        description: "Retorna dados do usuário autenticado (requer token JWT)",
+        security: [{ bearerAuth: [] }],
         response: {
           200: userPublicSchema,
         },

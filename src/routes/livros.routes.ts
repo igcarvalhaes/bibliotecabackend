@@ -4,6 +4,7 @@ import {
   criarLivroSchema,
   IdParamsSchema,
   livroResponseSchema,
+  removerResponseSchema,
 } from "../schemas/livro";
 import z from "zod";
 
@@ -13,6 +14,9 @@ export async function livrosRoutes(app: FastifyInstance) {
     "/livros",
     {
       schema: {
+        tags: ["Livros"],
+        summary: "Criar novo livro",
+        description: "Adiciona um novo livro ao catálogo",
         body: criarLivroSchema,
         response: {
           201: livroResponseSchema,
@@ -27,6 +31,9 @@ export async function livrosRoutes(app: FastifyInstance) {
     "/livros",
     {
       schema: {
+        tags: ["Livros"],
+        summary: "Listar todos os livros",
+        description: "Retorna lista completa de livros cadastrados",
         response: {
           200: z.array(livroResponseSchema),
         },
@@ -40,6 +47,9 @@ export async function livrosRoutes(app: FastifyInstance) {
     "/livros/:id",
     {
       schema: {
+        tags: ["Livros"],
+        summary: "Atualizar livro",
+        description: "Atualiza informações de um livro existente",
         params: IdParamsSchema,
         body: criarLivroSchema,
         response: {
@@ -55,7 +65,13 @@ export async function livrosRoutes(app: FastifyInstance) {
     "/livros/:id",
     {
       schema: {
+        tags: ["Livros"],
+        summary: "Remover livro",
+        description: "Remove um livro do catálogo",
         params: IdParamsSchema,
+        response: {
+          200: removerResponseSchema,
+        },
       },
     },
     livrosController.removerLivro
